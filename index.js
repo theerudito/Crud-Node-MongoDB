@@ -1,13 +1,10 @@
 const mongoose = require("mongoose")
+const express = require('express')
+const app = express()
+const conexion = require('./database/db')
 
 
-const url = "mongodb://localhost/jorgeDB"
 
-mongoose.connect(url, {
-    
-})
-.then( () =>console.log("Conectado a MongoDB"))
-.catch( (e) => console.log("Erro en conectar con mongo: " + e))
 
 const perosnasSquema = mongoose.Schema({
   nombre: String,
@@ -29,9 +26,9 @@ const mostrar = async () => {
 /*-------CREAR REGISTROS----------*/
 const crear = async () => {
   const persona = new PersonaModel({
-    nombre: "Eivor",
+    nombre: "Jorge",
     edad: 34,
-    pais: "Noruega"
+    pais: "Ecuador"
   })
 
   const resultado = await persona.save()
@@ -67,7 +64,11 @@ const eliminar = async (id) => {
 
 /*----------LLAMAMOS A LOS PROCEDIMIENTOS----------*/
 //mostrar()
-//crear()
+crear()
 //actualizar("61e83d0e8a3be9e5abf47654")
-eliminar("61e83b98c2df9771599085de")
+//eliminar("61e83b98c2df9771599085de")
 /*----------LLAMAMOS A LOS PROCEDIMIENTOS----------*/
+
+
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log('SERVIDOR A SU SERVICIO EN EL PUERTO', port))
